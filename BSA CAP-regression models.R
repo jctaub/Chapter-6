@@ -1,3 +1,21 @@
+#Creating Special uniques file
+# the suda_6_BSA files was created in the Special Uniques Detection Algorithm (SUDA)
+# which is a seperate software
+
+
+#reducing the special uniques to those with a score in the top percentile
+quantile(suda_6_BSA$SUDA_S, probs = seq(0, 1, by= 0.1))
+sp_suda6<- subset(suda_6_BSA, suda_6_BSA$SUDA_S>=14)
+
+row_count<- BSA2014
+row_count$ID<- 1
+row_count$ID<- (1:nrow(row_count))
+sp_6<- merge(sp_suda6, row_count, by= 'ID')
+
+######################################################
+# Regression Models
+####################################################
+
 #Regression CART CAP- with non-matches as 0
 tot6_cart<-data.frame(paa.6.m10(BSA2014, cart_bsa1, cart_bsa2, cart_bsa3, cart_bsa4, cart_bsa5, cart_bsa6, cart_bsa7,
               cart_bsa8, cart_bsa9, cart_bsa10, 'GOR2', 'HEdQual2', 'MarStat6', 'RAgecat3', 'Rsex', 
